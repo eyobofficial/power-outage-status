@@ -36,6 +36,7 @@ power-status/
 - **Dependency Management**: pip-tools
 - **Python Version**: 3.11+
 - **Server**: Django Development Server
+- **Environment Management**: python-decouple
 
 ## Quick Start
 
@@ -65,29 +66,48 @@ power-status/
    pip install -r requirements.txt
    ```
 
-4. Run migrations:
+4. Create environment file:
+   ```bash
+   # Create .env file in the root directory
+   cat > .env << EOF
+   DEBUG=True
+   SECRET_KEY=your-secret-key-change-this-in-production
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   EOF
+   ```
+
+5. Run migrations:
    ```bash
    cd src
    python manage.py migrate
    ```
 
-5. Start the development server:
+6. Start the development server:
    ```bash
    python manage.py runserver
    ```
 
-6. Access the application at `http://localhost:8000`
+7. Access the application at `http://localhost:8000`
 
 ## Configuration
 
-The project uses environment variables for configuration. Create a `.env` file in the root directory with the following variables:
+The project uses `python-decouple` to manage environment variables from a `.env` file. Create a `.env` file in the root directory with the following variables:
 
 ```env
+# Django Settings
 DEBUG=True
-SECRET_KEY=your-secret-key-here
+SECRET_KEY=your-secret-key-change-this-in-production
 ALLOWED_HOSTS=localhost,127.0.0.1
-DATABASE_URL=sqlite:///db.sqlite3
+
+# Database (optional - SQLite is used by default)
+# DATABASE_URL=sqlite:///db.sqlite3
 ```
+
+### Environment Variables
+
+- **DEBUG**: Set to `True` for development, `False` for production
+- **SECRET_KEY**: Django secret key for security (change in production)
+- **ALLOWED_HOSTS**: Comma-separated list of allowed hostnames
 
 ## Development
 
