@@ -20,8 +20,8 @@ The Power Status Tracker is designed to monitor and log electrical power status 
 ```
 power-status/
 ├── src/                    # Django project source code
-│   ├── power_status/       # Main Django project
-│   ├── apps/              # Django applications
+│   ├── power/       # Main Django project
+│   ├── notifications/              # Django applications
 │   └── manage.py          # Django management script
 ├── requirements.in         # pip-tools requirements input
 ├── pyproject.toml         # Project configuration
