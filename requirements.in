@@ -1,0 +1,26 @@
+# Core Django Framework
+django>=4.2,<5.0
+django-extensions>=3.2,<4.0
+django-lifecycle>=1.2,<2.0
+
+# Database and Environment Configuration
+django-environ>=0.11,<1.0
+
+# Development and Debugging Tools
+django-debug-toolbar>=4.4,<5.0
+django-browser-reload>=1.17,<2.0
+ipython>=8.31,<9.0
+
+# Code Quality and Formatting
+isort>=5.13,<6.0
+pre-commit>=4.0,<5.0
+
+# Testing and Data Generation
+factory-boy>=3.3,<4.0
+
+# HTTP and API
+requests>=2.32,<3.0
+
+# Dependency Management
+pip-tools>=7.4,<8.0
+pip-lock>=2.12,<3.0

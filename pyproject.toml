@@ -1,0 +1,105 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "power-status"
+version = "0.1.0"
+description = "A Django application for tracking home electric power status"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["django", "power", "monitoring", "home-automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Topic :: Home Automation",
+    "Topic :: System :: Monitoring",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/power-status"
+Repository = "https://github.com/yourusername/power-status"
+Documentation = "https://github.com/yourusername/power-status#readme"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["power_status", "apps"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "*.egg-info",
+    ".venv",
+    "venv",
+    "migrations",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "power_status.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+]
+testpaths = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/settings/*",
+    "*/wsgi.py",
+    "*/asgi.py",
+    "*/manage.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+] 
