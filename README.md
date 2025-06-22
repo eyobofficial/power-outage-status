@@ -72,7 +72,7 @@ power-status/
    cat > .env << EOF
    DEBUG=True
    SECRET_KEY=your-secret-key-change-this-in-production
-   ALLOWED_HOSTS=localhost,127.0.0.1
+   ALLOWED_HOSTS=*
    EOF
    ```
 
@@ -97,7 +97,7 @@ The project uses `python-decouple` to manage environment variables from a `.env`
 # Django Settings
 DEBUG=True
 SECRET_KEY=your-secret-key-change-this-in-production
-ALLOWED_HOSTS=localhost,127.0.0.1
+ALLOWED_HOSTS=*
 
 # Database (optional - SQLite is used by default)
 # DATABASE_URL=sqlite:///db.sqlite3
@@ -107,7 +107,7 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 
 - **DEBUG**: Set to `True` for development, `False` for production
 - **SECRET_KEY**: Django secret key for security (change in production)
-- **ALLOWED_HOSTS**: Comma-separated list of allowed hostnames
+- **ALLOWED_HOSTS**: Comma-separated list of allowed hostnames (use `*` to allow all hosts)
 
 ## Development
 

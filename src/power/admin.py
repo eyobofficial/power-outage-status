@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import PowerStatus
+
+
+@admin.register(PowerStatus)
+class PowerStatusAdmin(admin.ModelAdmin):
+    list_display = ("is_on", "last_updated")
+    list_filter = ("is_on",)
+
