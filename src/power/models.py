@@ -23,12 +23,9 @@ class PowerStatus(LifecycleModel):
         try:
             # Import here to avoid circular imports
             from notifications.services import TelegramNotificationService
-            
-            # Get the previous value to determine the change
-            previous_value = self.get_previous_value('is_on')
-            if previous_value is not None:  # Only notify if there was a previous value
-                service = TelegramNotificationService()
-                service.send_power_status_notification(self, previous_value)
+
+            service = TelegramNotificationService()
+            service.send_power_status_notification(self)
                 
         except Exception as e:
             logger.error(f"Failed to send Telegram notification: {e}")
