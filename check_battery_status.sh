@@ -21,4 +21,4 @@ else
 fi
 
 # Run Django management command
-python manage.py update_power_status --status "$STATUS"
+python src/manage.py update_power_status --status "$STATUS"
