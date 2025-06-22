@@ -12,7 +12,6 @@ The Power Status Tracker is designed to monitor and log electrical power status 
 - Historical data tracking and visualization
 - Web-based dashboard interface
 - RESTful API for data access
-- Docker containerization for easy deployment
 - SQLite database for data storage
 
 ## Project Structure
@@ -25,8 +24,6 @@ power-status/
 │   └── manage.py          # Django management script
 ├── requirements.in         # pip-tools requirements input
 ├── pyproject.toml         # Project configuration
-├── docker-compose.yml     # Docker Compose configuration
-├── Dockerfile             # Docker container definition
 ├── .gitignore            # Git ignore rules
 ├── LICENSE               # MIT License
 └── README.md             # This file
@@ -36,18 +33,18 @@ power-status/
 
 - **Backend**: Django 4.2+
 - **Database**: SQLite (default)
-- **Containerization**: Docker & Docker Compose
 - **Dependency Management**: pip-tools
 - **Python Version**: 3.11+
+- **Server**: Django Development Server
 
 ## Quick Start
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Python 3.11+ (for local development)
+- Python 3.11+
+- pip
 
-### Using Docker (Recommended)
+### Local Development
 
 1. Clone the repository:
    ```bash
@@ -55,38 +52,31 @@ power-status/
    cd power-status
    ```
 
-2. Start the application:
-   ```bash
-   docker-compose up -d
-   ```
-
-3. Access the application at `http://localhost:8000`
-
-### Local Development
-
-1. Create a virtual environment:
+2. Create a virtual environment:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. Install dependencies:
+3. Install dependencies:
    ```bash
    pip install pip-tools
    pip-compile requirements.in
    pip install -r requirements.txt
    ```
 
-3. Run migrations:
+4. Run migrations:
    ```bash
    cd src
    python manage.py migrate
    ```
 
-4. Start the development server:
+5. Start the development server:
    ```bash
    python manage.py runserver
    ```
+
+6. Access the application at `http://localhost:8000`
 
 ## Configuration
 
@@ -119,13 +109,21 @@ python manage.py test
 
 The project follows PEP 8 style guidelines. Use a linter like `flake8` or `black` for code formatting.
 
-## Deployment
+### Database Management
 
-The application is designed to run on a home Ubuntu server using Docker. The Docker Compose configuration includes:
+```bash
+# Create migrations
+python src/manage.py makemigrations
 
-- Django web application
-- SQLite database (persistent volume)
-- Nginx reverse proxy (optional)
+# Apply migrations
+python src/manage.py migrate
+
+# Create superuser
+python src/manage.py createsuperuser
+
+# Access Django admin
+# Visit http://localhost:8000/admin/
+```
 
 ## Contributing
 
