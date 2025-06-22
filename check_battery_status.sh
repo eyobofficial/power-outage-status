@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source /home/eyob/power-outage-status/venv/bin/activate
+PROJECT_DIR="/home/eyob/power-outage-status"
+
+source $PROJECT_DIR/venv/bin/activate
 
 # Check power status (adjust path depending on your system)
 POWER_FILE="/sys/class/power_supply/ACAD/online"
@@ -19,4 +21,4 @@ else
 fi
 
 # Run Django management command
-python src/manage.py update_power_status --status "$STATUS"
+python $PROJECT_DIR/src/manage.py update_power_status --status "$STATUS"
