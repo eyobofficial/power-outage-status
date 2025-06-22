@@ -1,8 +1,6 @@
 #!/bin/bash
 
-source venv/bin/activate
-
-
+source /home/eyob/power-outage-status/venv/bin/activate
 
 # Check power status (adjust path depending on your system)
 POWER_FILE="/sys/class/power_supply/ACAD/online"
