@@ -45,7 +45,9 @@ class Command(BaseCommand):
                 self.style.SUCCESS(f'Power status updated to: {status_text}')
             )
 
-            self.stdout.write(f'Timestamp: {power_status.last_updated}')
+            # Convert timestamp to local timezone for display
+            local_timestamp = timezone.localtime(power_status.last_updated)
+            self.stdout.write(f'Timestamp: {local_timestamp}')
 
         except Exception as e:
             logger.error(f'Error updating power status: {e}')

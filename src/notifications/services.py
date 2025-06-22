@@ -14,7 +14,7 @@ class TelegramNotificationService:
         self.bot_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', None)
         self.base_url = f"https://api.telegram.org/bot{self.bot_token}" if self.bot_token else None
     
-    def send_power_status_notification(self, power_status):
+    def send_power_status_notification(self, power_status, previous_value=None):
         """Send notification about power status change to all active subscribers."""
         if not self.bot_token:
             logger.warning("Telegram bot token not configured. Skipping notification.")
@@ -41,7 +41,9 @@ class TelegramNotificationService:
     def _prepare_notification_message(self, power_status) -> str:
         """Prepare the notification message based on power status."""
         status = "🟢 ON" if power_status.is_on else "🔴 OFF"
-        timestamp = power_status.last_updated.strftime("%H:%M %b %d, %Y")
+
+        local_timestamp = timezone.localtime(power_status.last_updated)
+        timestamp = local_timestamp.strftime("%H:%M %b %d, %Y")
         
         message = f"⚡ Power Status: {status}\n"
         message += f"Time: {timestamp}\n"

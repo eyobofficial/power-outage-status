@@ -13,6 +13,7 @@ The Power Status Tracker is designed to monitor and log electrical power status 
 - Web-based dashboard interface
 - RESTful API for data access
 - SQLite database for data storage
+- **Telegram notifications** for power status changes
 
 ## Project Structure
 
@@ -37,6 +38,7 @@ power-status/
 - **Python Version**: 3.11+
 - **Server**: Django Development Server
 - **Environment Management**: python-decouple
+- **Notifications**: Telegram Bot API
 
 ## Quick Start
 
@@ -73,6 +75,7 @@ power-status/
    DEBUG=True
    SECRET_KEY=your-secret-key-change-this-in-production
    ALLOWED_HOSTS=*
+   TELEGRAM_BOT_TOKEN=your-telegram-bot-token-here
    EOF
    ```
 
@@ -99,8 +102,8 @@ DEBUG=True
 SECRET_KEY=your-secret-key-change-this-in-production
 ALLOWED_HOSTS=*
 
-# Database (optional - SQLite is used by default)
-# DATABASE_URL=sqlite:///db.sqlite3
+# Telegram Bot (optional)
+TELEGRAM_BOT_TOKEN=your-telegram-bot-token-here
 ```
 
 ### Environment Variables
@@ -108,6 +111,54 @@ ALLOWED_HOSTS=*
 - **DEBUG**: Set to `True` for development, `False` for production
 - **SECRET_KEY**: Django secret key for security (change in production)
 - **ALLOWED_HOSTS**: Comma-separated list of allowed hostnames (use `*` to allow all hosts)
+- **TELEGRAM_BOT_TOKEN**: Your Telegram bot token for notifications (optional)
+
+## Telegram Notifications Setup
+
+### 1. Create a Telegram Bot
+
+1. Message [@BotFather](https://t.me/botfather) on Telegram
+2. Send `/newbot` command
+3. Follow the instructions to create your bot
+4. Copy the bot token provided
+
+### 2. Configure the Bot Token
+
+Add your bot token to the `.env` file:
+```env
+TELEGRAM_BOT_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+```
+
+### 3. Add Subscribers
+
+Use the management command to add subscribers:
+
+```bash
+# Add a subscriber (replace with actual chat ID)
+python src/manage.py setup_telegram_bot --add-subscriber 123456789 --username your_username --name "Your Name"
+
+# Test the bot
+python src/manage.py setup_telegram_bot --test
+
+# List all subscribers
+python src/manage.py setup_telegram_bot --list-subscribers
+
+# Remove a subscriber
+python src/manage.py setup_telegram_bot --remove-subscriber 123456789
+```
+
+### 4. Get Your Chat ID
+
+To find your chat ID:
+1. Start a conversation with your bot
+2. Send any message to the bot
+3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
+4. Look for the `chat.id` field in the response
+
+### 5. Automatic Notifications
+
+Once configured, the system will automatically send notifications when:
+- Power status changes from ON to OFF or vice versa
 
 ## Development
 
@@ -166,10 +217,11 @@ The project follows a modular Django architecture:
 - **Templates**: Provide the user interface
 - **API**: RESTful endpoints for data access
 - **Management Commands**: Custom Django commands for data collection
+- **Services**: Telegram notification service for real-time alerts
 
 ## Future Enhancements
 
-- Real-time notifications for power status changes
+- Real-time notifications for power status changes ✅
 - Integration with smart home devices
 - Advanced analytics and reporting
 - Mobile application support
