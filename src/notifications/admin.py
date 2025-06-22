@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Subscriber
+from .models import TelegramSubscriber
 
 
-@admin.register(Subscriber)
-class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ("name", "telegram_id")
-    search_fields = ("name", "telegram_id")
-    list_filter = ("created_at", "updated_at")
+@admin.register(TelegramSubscriber)
+class TelegramSubscriberAdmin(admin.ModelAdmin):
+    list_display = ("chat_id", "username", "name", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("username", "name")
